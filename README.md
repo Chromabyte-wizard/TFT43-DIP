@@ -4,9 +4,12 @@ TFT43-DIP is an display for the Raspberry Pi with capacitive touchscreen.
 # Note
 * The Raspberry Pi OS after `2022-04-04` has a built-in DPI driver, so we only need a simple configuration in `/boot/config.txt` file to use this screen.
 * The OS of `2022-09-22` displays that the 180 degree rotation function is abnormal, please do not use it.
+* as of `2023-10-10`(release of Raspberian with codename "bookworm") it has been  changed the structure of file formating for editing config it is `sudo nano /boot/firmware/config.txt`.
+* if you are running older version than bookworm use instead of `sudo nano /boot/firmware/config.txt` use this command `sudo nano /boot/config.txt`
+* also you should use this comand. if you're using older Versions because it is written for previous file system  `sudo wget https://raw.githubusercontent.com/bigtreetech/TFT43-DIP/master/gt911_btt_tft43_dip.dtbo -O /boot/overlays/gt911_btt_tft43_dip.dtbo`
 
 ## Display function
-Add the following configuration to the `[all]` section of the `/boot/config.txt` file. (Generally, it can be added to the bottom of the `/boot/config.txt` file)
+Add the following configuration to the `[all]` section of the `/boot/firmware/config.txt` file. (Generally, it can be added to the bottom of the `/boot/firmware/config.txt` file)
 ```
 dtoverlay=vc4-kms-dpi-generic
 dtparam=rgb666-padhi,clock-frequency=32000000
@@ -20,9 +23,9 @@ dtparam=rotate=0
 ## Touch function
 Copy [`gt911_btt_tft43_dip.dtbo`](./gt911_btt_tft43_dip.dtbo) file to `/boot/overlays` path. (We can copy the file to the boot path of the SD card on the computer, or execute the following command on the ssh of the Raspberry Pi to download it directly)
 ```
-sudo wget https://raw.githubusercontent.com/bigtreetech/TFT43-DIP/master/gt911_btt_tft43_dip.dtbo -O /boot/overlays/gt911_btt_tft43_dip.dtbo
+sudo wget https://raw.githubusercontent.com/bigtreetech/TFT43-DIP/master/gt911_btt_tft43_dip.dtbo -O /boot/firmware/overlays/gt911_btt_tft43_dip.dtbo
 ```
-And add the following configuration to the `[all]` section of the `/boot/config.txt` file.
+And add the following configuration to the `[all]` section of the `/boot/firmware/config.txt` file.
 ```
 dtoverlay=gt911_btt_tft43_dip
 dtparam=rotate_0
@@ -33,7 +36,7 @@ dtparam=rotate_0
 
 ### Normal display
 * Copy [`gt911_btt_tft43_dip.dtbo`](./gt911_btt_tft43_dip.dtbo) file
-* Add the following configuration to the `[all]` section of the `/boot/config.txt` file
+* Add the following configuration to the `[all]` section of the `/boot/firmware/config.txt` file
   ```
   dtoverlay=vc4-kms-dpi-generic
   dtparam=rgb666-padhi,clock-frequency=32000000
@@ -48,7 +51,7 @@ dtparam=rotate_0
 
 ### Rotate 90 degrees display
 * Copy [`gt911_btt_tft43_dip.dtbo`](./gt911_btt_tft43_dip.dtbo) file
-* Add the following configuration to the `[all]` section of the `/boot/config.txt` file
+* Add the following configuration to the `[all]` section of the `/boot/firmware/config.txt` file
   ```
   dtoverlay=vc4-kms-dpi-generic
   dtparam=rgb666-padhi,clock-frequency=32000000
